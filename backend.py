@@ -14,6 +14,8 @@ from langgraph.types import Send
 
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_community.tools.tavily_search import TavilySearchResults
+from mcp_client import tavily_mcp_search
+import asyncio
 
 from langchain_groq import ChatGroq
 from langchain_ollama import ChatOllama
@@ -196,6 +198,7 @@ def route_next(state: State) -> str:
 def _tavily_search(query: str, max_results: int = 5) -> List[dict]:
     
     tool = TavilySearchResults(max_results=max_results)
+    results = asyncio.run(tavily_mcp_search(query))
     results = tool.invoke({"query": query})
 
     normalized: List[dict] = []

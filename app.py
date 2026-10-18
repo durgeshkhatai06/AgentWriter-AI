@@ -21,6 +21,9 @@ import uvicorn
 # ---------------------------------------------------------
 from backend import app as workflow
 
+import nest_asyncio
+nest_asyncio.apply()
+
 
 # ---------------------------------------------------------
 # Paths
